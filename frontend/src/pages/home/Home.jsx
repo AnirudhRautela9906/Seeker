@@ -3,7 +3,7 @@ import './Style.scss'
 import jobPoster from '../../Home_images/jobPoster.png'
 import jobSeeker from '../../Home_images/jobSeeker.png'
 import Footer from '../../components/footer/Footer'
-import Navbar from '../../components/navbar/Navbar'
+import Navbar from '../../components/navbar/Navbar.jsx'
 const Home = () => {
   return (
     <>
