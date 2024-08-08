@@ -15,7 +15,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +24,9 @@ public class Address {
     private String area;
 
     @OneToOne
-//    @JsonBackReference
     @JoinColumn(name = "user_email")
     private User user;
 
     @OneToOne
-    @JsonBackReference
     private Job jobId;
 }

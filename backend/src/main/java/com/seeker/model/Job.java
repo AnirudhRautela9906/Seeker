@@ -30,6 +30,10 @@ public class Job {
     @Column(name = "job_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jobId;
+    
+    private String shortDesc;
+    
+    private String longDesc;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_email")
