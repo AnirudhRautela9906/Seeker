@@ -10,22 +10,26 @@ import com.seeker.model.Job;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
 @Data
+@Builder
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 //	User (id, name, email, password, List of Jobs Applied by him, List of Jobs Posted by him, rating, 
 	@NotEmpty(message = "Email Id cannot be empty")
 	@NotNull(message = "Email Id cannot be null")
-	@NotBlank(message = "Email should not be blank")
+	@NotBlank(message = "Email Id cannot be blank")
 	private String email;
 
 	@NotEmpty(message = "Name cannot be empty")
@@ -48,16 +52,16 @@ public class UserDTO {
 	private int age;
 
 
-    private List<Job> jobsApplied = new ArrayList<>();
-
-    private List<Job> jobsPosted = new ArrayList<>();
-
-    private Set<Job> assignedJobs;
+//    private List<Job> jobsApplied = new ArrayList<>();
+//
+//    private List<Job> jobsPosted = new ArrayList<>();
+//
+//    private Set<Job> assignedJobs;
 
 //	@NotEmpty(message = "Address cannot be empty")
 //	@NotNull(message = "Address cannot be null")
 //	@NotBlank(message = "Address cannot be blank")   
-    private Address address;
+    private AddressDTO address;
     
     
 
