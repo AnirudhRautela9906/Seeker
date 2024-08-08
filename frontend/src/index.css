@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+html, body {
+  overflow-x: hidden; /* Hides horizontal scrollbar */
+  margin: 0; /* Optional: Remove default margin */
+  padding: 0; /* Optional: Remove default padding */
+}
