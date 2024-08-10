@@ -9,11 +9,9 @@
 }
 .nav1 {
   display: flex;
-  
-
   align-items: center;
-  justify-content: space-around;
-  gap: 1076px;
+  justify-content: space-between;
+  
   .profilePic{
     border-radius: 100px;
     border: 2px solid black;

@@ -22,7 +22,6 @@ import com.seeker.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @Service
 @Transactional
@@ -88,7 +87,6 @@ public class UserServices {
 //        		.token(jwt)
 //        		.build();
         
-		
 		return mapper.map(UserRepo.save(User), UserDTO.class);
 	}
 	

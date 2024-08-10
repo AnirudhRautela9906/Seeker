@@ -32,7 +32,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User implements UserDetails {
 
-    @Id
+    private static final long serialVersionUID = 1L;
+
+	@Id
     private String email;
 
     private String name;

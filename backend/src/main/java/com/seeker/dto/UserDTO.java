@@ -1,12 +1,5 @@
 package com.seeker.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import com.seeker.model.Address;
-import com.seeker.model.Job;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

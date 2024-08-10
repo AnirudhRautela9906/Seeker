@@ -5,6 +5,8 @@ import Home from "./pages/home/Home.jsx";
 import Register from "./pages/signup/SignUpForm.jsx";
 import Login from "./pages/login/Login.jsx";
 import Profile from './pages/profile/Profile.jsx'
+import { Toaster } from 'react-hot-toast';
+import { useEffect, useState } from "react";
 function App() {
   
   return (
@@ -17,7 +19,7 @@ function App() {
           <Route path="/Signup" element={<Register />} />
           <Route path="/Login" element={<Login />} />
         </Routes>
-        
+        <Toaster/>
       </Router>
     </div>
   );

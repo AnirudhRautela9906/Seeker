@@ -12,21 +12,24 @@ const Home = () => {
     <p className='p1'>Why to worry when a Seeker is Ready !!</p>
     
     <div className='parallel'>  
-        
+        <div className='box1 '>
           <button className='box'>
             <img src={jobPoster} alt="jobPoster"/>
+            <div className="special-paragraph1" >Want your job done?</div>
           </button>
+        </div>
+          
         
-        
+        <div className="box1">
           <button className='box'>
             <img src={jobSeeker} alt="jobSeeker"/>
+            <div className="special-paragraph2">Want to earn by doing a job?</div>
           </button>
+        </div>
+          
         
     </div>  
-    <div className='textdiv'>
-      <div className="special-paragraph1" >Want your work done?</div>
-      <div className="special-paragraph2">Want to earn by doing work?</div>
-    </div>
+    
     <Footer />
     </>
   )
