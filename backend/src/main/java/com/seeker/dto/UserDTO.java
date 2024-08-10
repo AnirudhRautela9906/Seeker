@@ -1,5 +1,7 @@
 package com.seeker.dto;
 
+import com.seeker.model.Role;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -43,6 +45,8 @@ public class UserDTO {
 
 	@NotNull(message = "Age cannot be null")
 	private int age;
+	
+	private Role role;
 
 
 //    private List<Job> jobsApplied = new ArrayList<>();

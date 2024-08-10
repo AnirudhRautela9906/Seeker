@@ -15,4 +15,5 @@ public class APIResponse {
 		this.message = message;
 		this.ts = LocalDateTime.now();
 	}
+
 }
