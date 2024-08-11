@@ -7,7 +7,13 @@ import Login from "./pages/login/Login.jsx";
 import Profile from './pages/profile/Profile.jsx'
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from "react";
+import axios from "axios";
 function App() {
+  useEffect(()=>{
+    axios.get("http://localhost:8080/seeker/me", {
+      withCredentials: true,  // Include credentials (cookies) in the request
+    }).then().catch()
+  },[]);
   
   return (
     <div>

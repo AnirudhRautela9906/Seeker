@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [Password, setPassword] = useState("");
   const onLogin = ()=>{
-    axios.post("http://localhost:8080/seeker/user/login",{
+    axios.post("http://localhost:8080/seeker/login",{
       "email" : email,
       "password" : Password
   }, {
