@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarProfile from '../../components/navbar/NavbarProfile'
 import './Style.scss'
 import DownArrow from '../../Home_images/Down Icon.svg'
 import FilterIcon from '../../Home_images/Filter Icon.svg'
 import JobCard from './../../components/jobCard/JobCard.jsx'
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom'
 const Profile = () => {
-
   
+  const nav = useNavigate();
+  useEffect(()=>{
+    const myCookie = Cookies.get('JWT_TOKEN');
+
+    if(myCookie === undefined)
+    {}else{
+      nav('/Login');
+    }
+  },[])
 
   return (
     <>

@@ -22,7 +22,7 @@ const Login = () => {
     toast.success("Login Successful");
     navigate('/profile');
   }).catch((error)=>{
-    console.log("sjk");
+    console.log("Invalid Email or Password");
     toast.error("Invalid Email or Password");
   })
   }
@@ -51,7 +51,7 @@ const Login = () => {
         </div>
         <div className="SignupButtonBox">
           <p>Don't have a Seeker Account?</p>
-          <button>Sign Up</button>
+          <button onClick={()=>{navigate("/Signup")}}>Sign Up</button>
         </div>
       </div>
       <Footer/>
