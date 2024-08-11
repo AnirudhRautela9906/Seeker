@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate
+  Navigate,
 } from "react-router-dom";
 import Home from "./pages/home/Home.jsx";
 import Register from "./pages/signup/SignUpForm.jsx";
@@ -11,11 +11,13 @@ import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
+import { setUser } from "./redux/userSlice.js";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 function App() {
   const [url, setUrl] = useState(null); // Default to null before API response
-
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("http://localhost:8080/seeker/me", {
@@ -23,11 +25,12 @@ function App() {
       })
       .then((res) => {
         console.log("Result of ME: " + JSON.stringify(res.data));
+        dispatch(setUser(res.data)); // Dispatch the action to update the state
         setUrl("/profile"); // Set URL to profile if API request succeeds
       })
       .catch((error) => {
         console.log("Error:" + error);
-         // Redirect to login on error
+        // Redirect to login on error
       });
   }, []);
 
