@@ -1,22 +1,18 @@
-import org.springframework.context.annotation.Bean;
+package com.seeker;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig {
+public class CorsConfig implements WebMvcConfigurer {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")  // Apply to all paths
-                        .allowedOrigins("http://example.com")  // Replace with your client domain
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")  // Specify allowed methods
-                        .allowedHeaders("*")  // Allow any headers
-                        .allowCredentials(true);  // Allow credentials (cookies, authorization headers, etc.)
-            }
-        };
-    }
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**") // Apply CORS to all endpoints
+				.allowedOrigins("http://localhost:3000") // Replace with your client-side URL
+				.allowedMethods("GET", "POST", "PUT", "DELETE") // Specify allowed methods
+				.allowedHeaders("Content-Type", "Authorization") // Specify allowed headers
+				.allowCredentials(true); // Allow credentials (cookies) to be included
+	}
 }

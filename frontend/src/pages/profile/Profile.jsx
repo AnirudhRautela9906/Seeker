@@ -5,6 +5,9 @@ import DownArrow from '../../Home_images/Down Icon.svg'
 import FilterIcon from '../../Home_images/Filter Icon.svg'
 import JobCard from './../../components/jobCard/JobCard.jsx'
 const Profile = () => {
+
+  
+
   return (
     <>
         <NavbarProfile/>
@@ -51,7 +54,6 @@ const Profile = () => {
               state:`mksckmk`
             }  } jobTitle = {`JD in brief/ Job Title`}/>
         </div>
-        
     </>    
   )
 }
