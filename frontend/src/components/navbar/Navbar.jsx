@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Home_images/logo.png";
 import "./Style.scss";
 const Navbar = () => {
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   return (
     <>
       <div className="nav1">
         <div className="nav1-1">
           <img src={logo} alt="" />
-          <Link to="/">Home</Link>
+          <Link to="/About">About</Link>
           <Link to="/Contact">Contact</Link>
         </div>
         <div className="nav1-2">

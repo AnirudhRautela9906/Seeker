@@ -13,7 +13,7 @@ const SignUpForm = () => {
     name: "",
     password:"",
     aadhar:"",
-    age: 0,  // Corrected from 123 to 0 for age
+    age: 0,
     address: {
       state: "",
       city: "",
@@ -30,7 +30,7 @@ const SignUpForm = () => {
       navigate('/profile');
     }).catch((error) => {
       console.log("Error occurred:", error);
-      toast.error("Registration Failed");
+      toast.error(error.message);
     });
   };
 
@@ -43,11 +43,13 @@ const SignUpForm = () => {
     }));
   };
 
+  const nav = useNavigate();
+
   return (
     <>
       <div className='nav'>
         <Logo />
-        <button>Log in</button>
+        <button onClick={()=>{nav("/Login")}}>Log in</button>
       </div>
       
       <div className="container">
