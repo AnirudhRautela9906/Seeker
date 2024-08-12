@@ -1,6 +1,7 @@
 package com.seeker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seeker.dto.LoginDTO;
-import com.seeker.dto.RegisterDTO;
+import com.seeker.dto.user.LoginDTO;
+import com.seeker.dto.user.RegisterDTO;
 import com.seeker.services.UserServices;
 
 import jakarta.servlet.http.Cookie;
@@ -51,8 +52,6 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterDTO userDto, HttpServletResponse response) {
-//		System.out.println("dsfds");
-//		return ResponseEntity.ok("sd");
 		return ResponseEntity.status(HttpStatus.CREATED).body(userSer.registerUser(userDto, response));
 	}
 

@@ -11,18 +11,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.seeker.config.JwtService;
-import com.seeker.dto.AddressDTO;
-import com.seeker.dto.JobDTO;
-import com.seeker.dto.JobPostedDTO;
-import com.seeker.dto.LoginDTO;
-import com.seeker.dto.MeDTO;
-import com.seeker.dto.RegisterDTO;
+import com.seeker.dto.job.JobAppliedDTO;
+import com.seeker.dto.job.JobPostedDTO;
+import com.seeker.dto.remaining.AddressDTO;
+import com.seeker.dto.user.LoginDTO;
+import com.seeker.dto.user.MeDTO;
+import com.seeker.dto.user.RegisterDTO;
 import com.seeker.exception.BackendException;
 import com.seeker.model.Address;
 import com.seeker.model.Job;
 import com.seeker.model.Role;
 import com.seeker.model.User;
-import com.seeker.repository.JobRepository;
 import com.seeker.repository.UserRepository;
 
 import jakarta.servlet.http.Cookie;
@@ -48,8 +47,6 @@ public class UserServices {
 	@Autowired
 	private ModelMapper mapper;
 	
-	@Autowired
-	private JobRepository jobRepo;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder; 
@@ -93,6 +90,7 @@ public class UserServices {
         Cookie cookie = new Cookie("JWT_TOKEN", jwt);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
+        cookie.setMaxAge(60*60*5);
         response.addCookie(cookie);
         
 //        return TokenDTO
@@ -133,24 +131,21 @@ public class UserServices {
 	public Object login(LoginDTO loginDto,  HttpServletResponse response) {
 		  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 		  User user = UserRepo.findByEmail(loginDto.getEmail()).orElseThrow(()-> new BackendException("User not found"));
-//		  if(!loginDto.getPassword().equals(user.getPassword()))
-//			  throw new BackendException("Invalid Credentials");
 		  String jwt = jwtService.generateToken(user);
 	        Cookie cookie = new Cookie("JWT_TOKEN", jwt);
 	        cookie.setHttpOnly(true);
 	        cookie.setPath("/");
+	        cookie.setMaxAge(60*60*5);
 	        response.addCookie(cookie);
+	        response.addHeader("Authorization", "Bearer "+jwt); // Headers are set 
+	        
 		return "Login Successful";
 	}
 
 	public Object loadUserDetails(String username) {
 		User user = UserRepo.findByEmail(username).orElseThrow(()-> new BackendException("User not found"));
 		MeDTO meDTO = new MeDTO();
-		
-		List<JobPostedDTO> jobPostedDtoList = user.getJobsPosted().stream()
-		.map(e-> mapper.map(e, JobPostedDTO.class))
-		.collect(Collectors.toList());
-		
+			
 		
 //		List<Job> jobs = user.getJobsPosted();
 //		Job job = new Job();
@@ -166,7 +161,7 @@ public class UserServices {
 //				.collect(Collectors.toList());
 		
 //		MeDTO meDto = mapper.map(user,MeDTO.class );
-		meDTO.setJobsPosted(jobPostedDtoList);
+
 //		 mapper.map(user,MeDTO.class );
 		
 		meDTO.setName(user.getName());
@@ -176,6 +171,17 @@ public class UserServices {
 		meDTO.setAge(user.getAge());
 		meDTO.setRole(user.getRole());
 		meDTO.setAddress(mapper.map(user.getAddress(), AddressDTO.class));
+		
+		// List of jobs posted by the logged in user
+		List<JobPostedDTO> jobPostedDtoList = user.getJobsPosted().stream()
+		.map(e-> mapper.map(e, JobPostedDTO.class))
+		.collect(Collectors.toList());
+		meDTO.setJobsPosted(jobPostedDtoList);
+		
+		//List of jobs applied by the logged in user
+		List<Job> jobsAppliedList = user.getJobsApplied();
+		List<JobAppliedDTO> jobsAppliedDtoList = jobsAppliedList.stream().map(e -> mapper.map(e, JobAppliedDTO.class)).collect(Collectors.toList());
+		meDTO.setJobsApplied(jobsAppliedDtoList);
 		
 		
 		return meDTO;

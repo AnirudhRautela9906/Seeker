@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seeker.dto.JobDTO;
-import com.seeker.dto.RegisterDTO;
+import com.seeker.dto.job.JobDTO;
 import com.seeker.services.JobServices;
 
 import jakarta.servlet.http.HttpServletResponse;

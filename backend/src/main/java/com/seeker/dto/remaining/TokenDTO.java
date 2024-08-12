@@ -1,4 +1,4 @@
-package com.seeker.dto;
+package com.seeker.dto.remaining;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

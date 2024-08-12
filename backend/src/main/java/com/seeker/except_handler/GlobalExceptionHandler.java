@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.seeker.dto.APIResponse;
+import com.seeker.dto.remaining.APIResponse;
 import com.seeker.exception.BackendException;
 
 

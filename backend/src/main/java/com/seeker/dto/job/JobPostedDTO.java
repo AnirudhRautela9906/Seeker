@@ -1,8 +1,10 @@
-package com.seeker.dto;
+package com.seeker.dto.job;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.seeker.dto.remaining.AddressDTO;
+import com.seeker.dto.user.RegisterDTO;
 import com.seeker.model.JobStatus;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,8 +15,8 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class JobDTO {
-
+public class JobPostedDTO {
+	
 	private Long jobId;
 	@NotEmpty(message = "Short Description cannot be empty")
 	@NotNull(message = "Short Description cannot be null")
@@ -25,8 +27,6 @@ public class JobDTO {
 	@NotNull(message = "Long Description cannot be null")
 	@NotBlank(message = "Long Description cannot be blank")
     private String longDesc;
-
-	private RegisterDTO creator;
 	
 	private Double price;
 
