@@ -13,16 +13,16 @@ export const useFetchPost = (url,body,isLogin)=>{
             setLoading(false)
             if(res.message === undefined)
             {
-                console.log(res.data);
+                //console.log(res.data);
                 setData(res.data);
             }
             else
             {
-                console.log(res.data);
+               // console.log(res.data);
                 setError(res.message);
             }
         }).catch((error)=>{
-            console.log(body);
+            //console.log(body);
             setLoading(false)
             setError(error.response.data.message || "unknown error");
         })

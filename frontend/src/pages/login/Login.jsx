@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Footer from '../../components/footerLogin/Footer'
 import NavbarLogin from '../../components/navbar/NavbarLogin'
 import User from './../../Home_images/Username.svg'
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import './style.scss'
 import Lock from './../../Home_images/Password.svg'
@@ -11,6 +10,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from '../../redux/userSlice';
 import { useFetchPost } from '../../hooks/useFetchPost.jsx';
+
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -44,7 +44,7 @@ const Login = () => {
         if(data.name !== null)
         {
           dispatch(setUser(data));
-          // console.log(data);
+           console.log(data);
           toast.success(`Welcome ${data.name}`);
           navigate('/profile');
         }
