@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SignUpForm.scss';
 import bgImage from "../../Home_images/SignUp_page_background.png";
 import Logo from "../../components/navbar/NavbarLogin";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { postApi } from '../../services/ApiConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../redux/userSlice';
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+  const {user} = useSelector(state=> state.user);
   const [obj, setObj] = useState({
     email: "",
     name: "",
@@ -20,17 +25,18 @@ const SignUpForm = () => {
       area: ""
     }
   });
-
+  if(user.email !== ""){
+    nav("/profile");
+  }
   const onRegister = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:8080/seeker/register", obj, {
-      withCredentials: true,  // Include credentials (cookies) in the request
-    }).then((res) => {
-      toast.success("Registration Successful");
-      navigate('/profile');
-    }).catch((error) => {
-      console.log("Error occurred:", error);
-      toast.error(error.message);
+    
+    postApi("http://localhost:8080/seeker/register", obj).then((res)=>{
+      toast.success(`Welcome ${res.data.name} !`);
+      dispatch(setUser(res.data))
+      nav("/profile");
+    }).catch((error)=>{
+      toast.error("Already Signed Up ")
     });
   };
 
@@ -43,7 +49,7 @@ const SignUpForm = () => {
     }));
   };
 
-  const nav = useNavigate();
+  
 
   return (
     <>

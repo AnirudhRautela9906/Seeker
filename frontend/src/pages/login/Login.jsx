@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from '../../components/footerLogin/Footer'
 import NavbarLogin from '../../components/navbar/NavbarLogin'
 import User from './../../Home_images/Username.svg'
@@ -8,24 +8,54 @@ import './style.scss'
 import Lock from './../../Home_images/Password.svg'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from '../../redux/userSlice';
+import { useFetchPost } from '../../hooks/useFetchPost.jsx';
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const [Password, setPassword] = useState("");
-  const onLogin = ()=>{
-    axios.post("http://localhost:8080/seeker/login",{
-      "email" : email,
-      "password" : Password
-  }, {
-    withCredentials: true,  // Include credentials (cookies) in the request
-  }).then((res)=>{
-    toast.success("Login Successful");
-    navigate('/profile');
-  }).catch((error)=>{
-    console.log("Invalid Email or Password");
-    toast.error("Invalid Email or Password");
-  })
+  const [isLogin, setIsLogin] = useState(false);
+  const [body, setBody] = useState({
+    "email" : email,
+    "password" : Password
+  });
+  const nav = useNavigate();
+  const {user} = useSelector(state=> state.user);
+  if(user.email !== ""){
+    nav("/profile");
   }
+  const onLogin = ()=>{
+  
+  setBody(prev => ({
+    ...prev,
+    email: email,
+    password: Password
+  }));
+  setIsLogin(true);
+    
+  }
+  const {loading, error, data} = useFetchPost("http://localhost:8080/seeker/login",body,isLogin);
+  useEffect(()=>{
+    // console.log(body,loading);
+    if(!loading )
+      {
+        if(data.name !== null)
+        {
+          dispatch(setUser(data));
+          // console.log(data);
+          toast.success(`Welcome ${data.name}`);
+          navigate('/profile');
+        }
+        else if(error !== null ){
+          console.log(error)
+          toast.error("Invalid Email or Password");
+        }
+        
+      }
+      
+  },[loading,body])
   return (
     <>
       <NavbarLogin/> 

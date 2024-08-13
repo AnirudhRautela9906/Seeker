@@ -7,8 +7,8 @@ const NavbarProfile = () => {
     <>
       <div className="nav1">
         <div className="nav1-1">
-          <img src={logo} alt="" onClick={()=>{navigate("/")}} />
-          <Link to="/">Home</Link>
+          <img src={logo} alt="" />
+          <Link to="/About">About</Link>
           <Link to="/Contact">Contact</Link>
         </div>
         <div className="profilePic">

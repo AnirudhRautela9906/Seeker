@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Style.scss'
 import jobPoster from '../../Home_images/jobPoster.png'
 import jobSeeker from '../../Home_images/jobSeeker.png'
 import Footer from '../../components/footer/Footer'
 import Navbar from '../../components/navbar/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const Home = () => {
   const nav = useNavigate();
+   const {user} = useSelector(state => state.user);
+   if(user.email !== "")
+    {
+     nav('/profile')
+    }
+   
+    
   return (
     <>
     <Navbar />

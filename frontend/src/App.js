@@ -9,49 +9,40 @@ import Home from "./pages/home/Home.jsx";
 import Register from "./pages/signup/SignUpForm.jsx";
 import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { setUser } from "./redux/userSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import axios from "axios";
+import { getApi } from "./services/ApiConfig.js";
+import { useFetchGet } from "./hooks/useFetchGet.jsx";
 
 function App() {
-  const [url, setUrl] = useState(null); // Default to null before API response
+  //const [url, setUrl] = useState(null); // Default to null before API response
   const dispatch = useDispatch();
+  const {user} = useSelector(state => state.user);
+  const {data,loading,error} = useFetchGet("http://localhost:8080/seeker/me");
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/seeker/me", {
-        withCredentials: true, // Include credentials (cookies) in the request
-      })
-      .then((res) => {
-        console.log("Result of ME: " + JSON.stringify(res.data));
-        dispatch(setUser(res.data)); // Dispatch the action to update the state
-        setUrl("/profile"); // Set URL to profile if API request succeeds
-      })
-      .catch((error) => {
-        console.log("Error:" + error);
-        // Redirect to login on error
-      });
-  }, []);
-
-  if (url === null) {
-    return (
-      <Router>
-        {url && <Navigate to={url} />}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Signup" element={<Register />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-        <Toaster />
-      </Router>
-    );
-  }
-
+    
+    if(!loading )
+      {
+        if(error === null)
+        {
+          dispatch(setUser(data));
+          // toast.success(`Welcome ${data.name}`);
+          //setUrl("/profile")
+        }
+        
+      }
+  }, [data]);
+  
+  // console.log("hi");
+  const x  = "/profile"
   return (
+    <>
     <Router>
-      {url && <Navigate to={url} />}
+      {/* {console.log(user.email)} */}
+      {/* { user.email !== "" &&  <Navigate to={x}  />} */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Signup" element={<Register />} />
@@ -60,6 +51,7 @@ function App() {
       </Routes>
       <Toaster />
     </Router>
+    </>
   );
 }
 
