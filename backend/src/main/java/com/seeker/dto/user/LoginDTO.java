@@ -1,4 +1,4 @@
-package com.seeker.dto;
+package com.seeker.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
