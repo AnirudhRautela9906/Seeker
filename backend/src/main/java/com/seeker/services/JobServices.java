@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.seeker.dto.job.JobDTO;
+import com.seeker.dto.remaining.AddressDTO;
 import com.seeker.exception.BackendException;
 import com.seeker.model.Address;
 import com.seeker.model.Job;
@@ -41,6 +42,23 @@ public class JobServices {
 				.map(e-> mapper.map(e, JobDTO.class))
 				.collect(Collectors.toList());
 	}
+	
+	// Search button 
+	public Object getJobsAtMyCity(AddressDTO addressDto) {
+		
+		return jobRepo.findAll().stream()
+		.filter(e-> e.getJobLocation().getArea().equals(addressDto.getArea())
+			  	 && e.getJobLocation().getCity().equals(addressDto.getCity())
+			  	 && e.getJobLocation().getState().equals(addressDto.getState()))
+		.map(e-> mapper.map(e, JobDTO.class))
+		.collect(Collectors.toList());
+	}
+	
+////	Drop Down load area
+//	public Object getListOfDistinctArea(@Valid AddressDTO addressDto) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 //	Create Job
 	public Object createJob(JobDTO jobDto, HttpServletResponse response) {
@@ -101,6 +119,16 @@ public class JobServices {
         jobRepo.save(job);
 		return "Job Applied";
 	}
+
+	
+	
+	//Job Assigned to a user by the job poster
+	public Object assignedUserForJob(String email) {
+		User user = userRepo.findByEmail(email).orElseThrow(()-> new BackendException("User Not Found"));
+		
+		return null;
+	}
+
 
 
 

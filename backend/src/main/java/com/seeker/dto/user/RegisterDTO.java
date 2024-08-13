@@ -3,6 +3,7 @@ package com.seeker.dto.user;
 import com.seeker.dto.remaining.AddressDTO;
 import com.seeker.model.Role;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -49,17 +50,13 @@ public class RegisterDTO {
 	
 	private Role role;
 
+	@NotNull(message = "Address cannot be Null")   
+	@Valid
 	private AddressDTO address;
 
-//    private List<Job> jobsApplied = new ArrayList<>();
-//
-//    private List<Job> jobsPosted = new ArrayList<>();
-//
-//    private Set<Job> assignedJobs;
+	@NotBlank(message = "Phone Number cannot be blank")   
+    private String phoneNumber;
 
-//	@NotEmpty(message = "Address cannot be empty")
-//	@NotNull(message = "Address cannot be null")
-//	@NotBlank(message = "Address cannot be blank")   
     
     
 

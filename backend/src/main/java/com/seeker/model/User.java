@@ -48,7 +48,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "creator", fetch =  FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Job> jobsPosted = new ArrayList<>();
 
-    @OneToMany(mappedBy = "assignedUser")
+    
+    @OneToMany(mappedBy = "assignedUser", fetch =  FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Job> assignedJobs;
 
     
@@ -57,6 +58,7 @@ public class User implements UserDetails {
     private Address address;
     
     
+    private String phoneNumber;
     
     
     @Enumerated(EnumType.STRING)

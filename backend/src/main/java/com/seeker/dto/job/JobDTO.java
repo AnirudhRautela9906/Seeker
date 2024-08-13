@@ -18,10 +18,10 @@ import lombok.ToString;
 public class JobDTO {
 
 	private Long jobId;
-	@NotEmpty(message = "Short Description cannot be empty")
-	@NotNull(message = "Short Description cannot be null")
-	@NotBlank(message = "Short Description cannot be blank")
-    private String shortDesc;
+	@NotEmpty(message = "Title Description cannot be empty")
+	@NotNull(message = "Title Description cannot be null")
+	@NotBlank(message = "Title Description cannot be blank")
+    private String title;
     
 	@NotEmpty(message = "Long Description cannot be empty")
 	@NotNull(message = "Long Description cannot be null")

@@ -30,9 +30,14 @@ public class SecurityConfiguration {
 //			User Mapping
 			.requestMatchers("/seeker/register","/seeker/login","/seeker/me").permitAll()
 			.requestMatchers("/seeker/users").hasAuthority(Role.ADMIN.name())
+			.requestMatchers("/seeker/getUser/{email}").hasAuthority(Role.ADMIN.name())
+			.requestMatchers("/seeker/delete/{email}").hasAuthority(Role.ADMIN.name())
+			.requestMatchers("/seeker/update/{email}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+			.requestMatchers("/seeker/logout").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			
 //			Job Mapping
 			.requestMatchers("/seeker/job").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+			.requestMatchers("/seeker/job/search").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job/create").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job/update/{id}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job/apply/{id}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())

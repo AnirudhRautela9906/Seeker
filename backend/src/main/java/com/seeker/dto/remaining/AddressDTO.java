@@ -1,10 +1,8 @@
 package com.seeker.dto.remaining;
 
-import java.util.List;
-import java.util.Set;
-
-import com.seeker.model.Job;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +19,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressDTO {
+	@NotBlank(message = "State cannot be blank") 
 	private String state;
+	@NotBlank(message = "City cannot be blank") 
 	private String city;
+	@NotBlank(message = "Area cannot be blank") 
 	private String area;
 }
