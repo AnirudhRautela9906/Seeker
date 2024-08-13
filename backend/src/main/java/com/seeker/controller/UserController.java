@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
     }
 
-	@GetMapping("/{email}")
+	@GetMapping("/getUser/{email}")
 	public ResponseEntity<?> getUser(@PathVariable String email) {
 		return ResponseEntity.status(HttpStatus.OK).body(userSer.getUser(email));
 	}
@@ -61,12 +61,12 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userSer.login(loginDto, response));
 	}
 
-	@PutMapping("/{email}")
+	@PutMapping("/update/{email}")
 	public ResponseEntity<?> updateUser(@Valid @PathVariable String email, @RequestBody RegisterDTO userDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(userSer.updateUser(email, userDto));
 	}
 
-	@DeleteMapping("/{email}")
+	@DeleteMapping("/delete/{email}")
 	public ResponseEntity<?> deleteTicket(@Valid @PathVariable String email) {
 		return ResponseEntity.status(HttpStatus.OK).body(userSer.deleteUser(email));
 	}

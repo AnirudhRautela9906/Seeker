@@ -66,25 +66,26 @@ public class UserServices {
 	}
 
 	// Create User
-	public RegisterDTO registerUser(RegisterDTO UserDTO,  HttpServletResponse response) {
-//	public UserDTO registerUser(UserDTO UserDTO) {
-		System.out.println(UserDTO);
+	public Object registerUser(RegisterDTO RegisterDTO,  HttpServletResponse response) {
+//		public RegisterDTO registerUser(RegisterDTO RegisterDTO,  HttpServletResponse response) {
+//	public RegisterDTO registerUser(RegisterDTO RegisterDTO) {
+		System.out.println(RegisterDTO);
 		
-		User User = mapper.map(UserDTO, User.class);
+		User User = mapper.map(RegisterDTO, User.class);
 		
 		Address Address = User.getAddress();
 		
 		// Important
 		Address.setUser(User);
 		User.setAddress(Address);
-		User.setPassword(passwordEncoder.encode(UserDTO.getPassword()));
+		User.setPassword(passwordEncoder.encode(RegisterDTO.getPassword()));
 		User.setRole(Role.USER);
-		if(UserDTO.getEmail().equals("ani@gmail.com"))
+		if(RegisterDTO.getEmail().equals("ani@gmail.com"))
 			User.setRole(Role.ADMIN);
 //		UserRepo.save(User);
 		
 		 // Set JWT in cookie
-//		final UserDetails userDetails = userDetailsService.loadUserByUsername(UserDTO.getEmail());
+//		final UserDetails userDetails = userDetailsService.loadUserByUsername(RegisterDTO.getEmail());
 
 		String jwt = jwtService.generateToken(User);
         Cookie cookie = new Cookie("JWT_TOKEN", jwt);
@@ -98,19 +99,29 @@ public class UserServices {
 //        		.token(jwt)
 //        		.build();
         
-		
-		return mapper.map(UserRepo.save(User), RegisterDTO.class);
+//		return mapper.map(UserRepo.save(User), RegisterDTO.class);
+
+        User = UserRepo.save(User);
+        return loadUserDetails(User.getEmail()) ;
 	}
 	
 	
 	// Update User details
-	public RegisterDTO updateUser(String email,RegisterDTO UserDTO) {
-		User User = mapper.map(UserDTO, User.class);
+	public RegisterDTO updateUser(String email,RegisterDTO registerDTO) {
+		User User = mapper.map(registerDTO, User.class);
 		if (UserRepo.existsById(email)) {
 			User.setEmail(email);
-//			User.setIssue_details(UserDTO.getIssue_details());
-//			User.setResolution_details(UserDTO.getResolution_details());
-//			User.setStatus(UserDTO.getStatus());
+//			User.setIssue_details(RegisterDTO.getIssue_details());
+//			User.setResolution_details(RegisterDTO.getResolution_details());
+//			User.setStatus(RegisterDTO.getStatus());
+//			meDTO.setName(user.getName());
+//			meDTO.setEmail(user.getEmail());
+//			meDTO.setPassword(user.getPassword());
+//			meDTO.setAadhar(user.getAadhar());
+//			meDTO.setAge(user.getAge());
+//			meDTO.setRole(user.getRole());
+//			meDTO.setAddress(mapper.map(user.getAddress(), AddressDTO.class));
+//			meDTO.setPhoneNumber(user.getPhoneNumber());
 			
 			UserRepo.save(User);			
 			return mapper.map(User, RegisterDTO.class);
@@ -139,30 +150,12 @@ public class UserServices {
 	        response.addCookie(cookie);
 	        response.addHeader("Authorization", "Bearer "+jwt); // Headers are set 
 	        
-		return "Login Successful";
+		return loadUserDetails(user.getEmail()) ;
 	}
 
 	public Object loadUserDetails(String username) {
 		User user = UserRepo.findByEmail(username).orElseThrow(()-> new BackendException("User not found"));
 		MeDTO meDTO = new MeDTO();
-			
-		
-//		List<Job> jobs = user.getJobsPosted();
-//		Job job = new Job();
-//		
-//		List<RegisterDTO> jobApplied = job.getAppliedUsers().stream()
-//				.map(e-> mapper.map(e, RegisterDTO.class))
-//				.collect(Collectors.toList());
-		
-		
-//		List<Stream<RegisterDTO>> jobApplied = jobs.stream()
-//				.map(job->	job.getAppliedUsers().stream()
-//				.map(e-> mapper.map(e, RegisterDTO.class)))
-//				.collect(Collectors.toList());
-		
-//		MeDTO meDto = mapper.map(user,MeDTO.class );
-
-//		 mapper.map(user,MeDTO.class );
 		
 		meDTO.setName(user.getName());
 		meDTO.setEmail(user.getEmail());
@@ -171,6 +164,7 @@ public class UserServices {
 		meDTO.setAge(user.getAge());
 		meDTO.setRole(user.getRole());
 		meDTO.setAddress(mapper.map(user.getAddress(), AddressDTO.class));
+		meDTO.setPhoneNumber(user.getPhoneNumber());
 		
 		// List of jobs posted by the logged in user
 		List<JobPostedDTO> jobPostedDtoList = user.getJobsPosted().stream()

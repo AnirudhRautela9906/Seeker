@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seeker.dto.job.JobDTO;
+import com.seeker.dto.remaining.AddressDTO;
 import com.seeker.services.JobServices;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +29,17 @@ public class JobController {
 	public ResponseEntity<?> getAllJobs() {
 		return ResponseEntity.status(HttpStatus.OK).body(jobSer.getAllJobs());
 	}
+	
+	
+	@PostMapping("/search")
+	public ResponseEntity<?> getJobsAtMyCity(@Valid @RequestBody AddressDTO addressDto) {
+		return ResponseEntity.status(HttpStatus.OK).body(jobSer.getJobsAtMyCity(addressDto));
+	}
+	
+//	@GetMapping("/loadAreaDropDown")
+//	public ResponseEntity<?> getListOfDistinctArea(@Valid @RequestBody AddressDTO addressDto) {
+//		return ResponseEntity.status(HttpStatus.OK).body(jobSer.getListOfDistinctArea(addressDto));
+//	}
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> createJob(@Valid @RequestBody JobDTO jobDto, HttpServletResponse response) {

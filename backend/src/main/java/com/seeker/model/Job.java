@@ -31,11 +31,11 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jobId;
     
-    private String shortDesc;
+    private String title;
     
     private String longDesc;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "creator_email")
     private User creator;
 
