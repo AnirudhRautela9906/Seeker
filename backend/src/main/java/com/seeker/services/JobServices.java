@@ -15,6 +15,7 @@ import com.seeker.dto.remaining.AddressDTO;
 import com.seeker.exception.BackendException;
 import com.seeker.model.Address;
 import com.seeker.model.Job;
+import com.seeker.model.JobStatus;
 import com.seeker.model.User;
 import com.seeker.repository.JobRepository;
 import com.seeker.repository.UserRepository;
@@ -106,6 +107,9 @@ public class JobServices {
         }
         Job job = jobRepo.findById(Long.parseLong(id)).orElseThrow(() -> new BackendException("Job not Found"));
         
+        if(job.getCreator().getEmail().equals(user.getEmail()))
+        	throw new BackendException("You cannot apply to this job");
+        
         if(job.getAppliedUsers().contains(user))
         	throw new BackendException("Already Applied");
         
@@ -123,10 +127,23 @@ public class JobServices {
 	
 	
 	//Job Assigned to a user by the job poster
-	public Object assignedUserForJob(String email) {
+	public Object assignedUserForJob(String email, Long jobId) {
 		User user = userRepo.findByEmail(email).orElseThrow(()-> new BackendException("User Not Found"));
+		Job job = jobRepo.findById(jobId).orElseThrow(()-> new BackendException("Job Not Found"));
 		
-		return null;
+		if(job.getAssignedUser() != null)
+			throw new BackendException("A User Already Assigned");
+		
+		if(!job.getAppliedUsers().contains(user))
+			throw new BackendException("User Cannot be Assigned");
+		
+		job.setAssignedUser(user);
+		job.setStatus(JobStatus.ASSIGNED);
+		List<Job> assignedJobs = user.getAssignedJobs();
+		assignedJobs.add(job);
+		user.setAssignedJobs(assignedJobs);
+		
+		return "Job Assigned";
 	}
 
 

@@ -67,7 +67,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/delete/{email}")
-	public ResponseEntity<?> deleteTicket(@Valid @PathVariable String email) {
+	public ResponseEntity<?> deleteUser(@Valid @PathVariable String email) {
 		return ResponseEntity.status(HttpStatus.OK).body(userSer.deleteUser(email));
 	}
 
