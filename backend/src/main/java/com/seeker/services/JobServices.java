@@ -1,6 +1,5 @@
 package com.seeker.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.seeker.dto.JobDTO;
+import com.seeker.dto.job.JobDTO;
 import com.seeker.exception.BackendException;
 import com.seeker.model.Address;
 import com.seeker.model.Job;

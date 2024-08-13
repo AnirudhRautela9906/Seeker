@@ -1,4 +1,4 @@
-package com.seeker.dto;
+package com.seeker.dto.remaining;
 
 import java.util.List;
 import java.util.Set;

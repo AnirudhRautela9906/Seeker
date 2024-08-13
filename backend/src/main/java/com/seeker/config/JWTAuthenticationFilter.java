@@ -36,6 +36,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 		final String userEmail;
 //		final String jwt;
 //		final String authHeader = request.getHeader("Authorization");
+//		System.out.println("Authorization: " +authHeader);
 //		if(authHeader == null || !authHeader.startsWith("Bearer ")) {
 //			filterChain.doFilter(request, response);
 //			return;
@@ -62,7 +63,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 		    }
 		}
 
-		// If JWT is not found, continue the filter chain and return
+		// If JWT not found, continue the filter chain and return
 		if (jwt == null) {
         	System.out.println("JWT NOT FOUND");
 		    filterChain.doFilter(request, response);

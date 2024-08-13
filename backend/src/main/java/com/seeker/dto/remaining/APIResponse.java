@@ -1,4 +1,4 @@
-package com.seeker.dto;
+package com.seeker.dto.remaining;
 
 import java.time.LocalDateTime;
 

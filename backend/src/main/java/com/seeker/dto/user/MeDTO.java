@@ -1,5 +1,10 @@
-package com.seeker.dto;
+package com.seeker.dto.user;
 
+import java.util.List;
+
+import com.seeker.dto.job.JobAppliedDTO;
+import com.seeker.dto.job.JobPostedDTO;
+import com.seeker.dto.remaining.AddressDTO;
 import com.seeker.model.Role;
 
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +25,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class MeDTO {
 //	User (id, name, email, password, List of Jobs Applied by him, List of Jobs Posted by him, rating, 
 	@NotEmpty(message = "Email Id cannot be empty")
 	@NotNull(message = "Email Id cannot be null")
@@ -49,15 +54,13 @@ public class UserDTO {
 	private Role role;
 
 
-//    private List<Job> jobsApplied = new ArrayList<>();
-//
-//    private List<Job> jobsPosted = new ArrayList<>();
-//
+    private List<JobAppliedDTO> jobsApplied;
+
+    private List<JobPostedDTO> jobsPosted;
+
 //    private Set<Job> assignedJobs;
 
-//	@NotEmpty(message = "Address cannot be empty")
-//	@NotNull(message = "Address cannot be null")
-//	@NotBlank(message = "Address cannot be blank")   
+	@NotBlank(message = "Address cannot be blank")   
     private AddressDTO address;
     
     
