@@ -1,9 +1,9 @@
 import React from 'react'
-import './style.scss'
-const JobCard = ({picUrl,name,address,jobTitle}) => {
+import './JobCard.scss'
+const JobCard = ({picUrl,name,address,jobTitle, cN, onClick}) => {
   return (
     <>
-        <div className="job-card">
+        <div className={`job-card ${cN}`} onClick={onClick}>
             <div className="firstBox">
                 <img src={picUrl} alt="" />
                 <div className="firstBoxDetails">

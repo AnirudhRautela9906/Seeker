@@ -11,11 +11,13 @@ import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { setUser } from "./redux/userSlice.js";
+import { setUser , setUserLoading} from "./redux/userSlice.js";
 import { useDispatch , useSelector} from "react-redux";
 import axios from "axios";
 import { getApi } from "./services/ApiConfig.js";
 import { useFetchGet } from "./hooks/useFetchGet.jsx";
+import { setJobsPosted } from "./redux/userSlice.js";
+import JobsPosted from "./pages/JobsPosted/JobsPosted.jsx";
 
 function App() {
   //const [url, setUrl] = useState(null); // Default to null before API response
@@ -31,10 +33,17 @@ function App() {
           dispatch(setUser(data));
           // toast.success(`Welcome ${data.name}`);
           //setUrl("/profile")
+          dispatch(setJobsPosted(data.jobsPosted));
+          dispatch(setUserLoading(false));
+          console.log(data.jobsPosted);
+        }
+        else{
+          console.log("nk");
+          dispatch(setUserLoading(false));
         }
         
       }
-  }, [data]);
+  }, [data,loading]);
   
   // console.log("hi");
   const x  = "/profile"
@@ -47,6 +56,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Signup" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/profile/jobsPosted" element={<JobsPosted />} />     
         <Route path="/profile" element={<Profile />} />
       </Routes>
       <Toaster />
