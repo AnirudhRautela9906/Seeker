@@ -10,7 +10,8 @@
 }
 
 .user-info {
-  flex-grow: 1;
+  display: inline;
+  padding-bottom: 0px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -59,6 +60,7 @@
   border-radius: 20px;
   cursor: pointer;
   font-size: 16px;
+  float: right;
 }
 .completed-button {
   background-color: #21B414;
@@ -67,5 +69,31 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
+}
+.completed-container{
+  display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .assigned-button{
+      font-size: 18px;
+    }
+    .box{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 100px;
+      .message{
+        display: flex;
+        font-size: 16px;
+    
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }  
+}
+
+.message{
+  float: left;
 }

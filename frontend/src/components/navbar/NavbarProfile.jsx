@@ -5,7 +5,7 @@ import { getApi, postApi } from "../../services/ApiConfig";
 const NavbarProfile = () => {
   const navigate = useNavigate();
   const logout = ()=>{
-    getApi("http://localhost:8080/seeker/logout").then(()=>{
+    postApi("http://localhost:8080/seeker/logout").then(()=>{
       alert("loggedout");
     }).catch(()=>{
       alert("Error")

@@ -2,7 +2,7 @@ import React from "react";
 import "./AppliedUsersCard.scss"; // Import the CSS file
 import { putApi } from "../../services/ApiConfig";
 import toast from "react-hot-toast";
-import Success from "../../Home_images/Success.svg"
+import Success from "../../Home_images/Success.svg";
 
 const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
   const onAssign = (email, jobid) => {
@@ -38,23 +38,30 @@ const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
           >
             Assign ?
           </button>
-          <hr />
         </div>
       );
     } else if (status === "ASSIGNED") {
       return (
         <div className="completed-container">
           <button className="assigned-button">Assigned</button>
-          <div className="message">
-            Please mark the Job Completed, <br />if Job done Successfully
+          <div className="box">
+            <div className="message">
+              Please mark the Job Completed, <br />
+              if Job done Successfully
+            </div>
+            <button
+              className="completed-button"
+              onClick={() => onCompleted(jobid)}
+            >
+              Completed ?
+            </button>
           </div>
-          <button className="completed-button" onClick={()=>onCompleted(jobid)}>Completed ?</button>
         </div>
       );
     } else if (status === "COMPLETED") {
       return (
         <div className="complete-status">
-          <img src={Success} alt="" className="svg"/>
+          <img src={Success} alt="" className="svg" />
           <div className="message">
             Hope, you are happy from the Seeker’s Service 😊
           </div>

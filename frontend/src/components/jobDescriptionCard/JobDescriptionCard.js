@@ -11,13 +11,33 @@ const JobDescriptionCard = ({ title, description, image, jobId, url , status, pr
             toast.error("Already Applied !");
         })
     }
+    const domNode = ()=>{
+      if(url === '/profile/jobsPosted')
+        {
+          return <div className="job-apply">{status}</div>
+        }  
+        else if( url === undefined)
+          {
+            return <div className="job-apply" onClick={onApply} >Apply</div>
+           }
+           else{
+            if(status === "POSTED")
+            {
+              return <div className="job-apply"  >Applied</div>
+            }
+            else{
+              return <div className="job-apply"  >{status}</div>
+              
+            }
+           } 
+    }
   return (
     <div className="job-card-description">
       <h2 className="job-title">{title}</h2>
       <label htmlFor="job-description" className="job-desc">Description and Instructions</label>
       <textarea name="job-description"
         className="job-description" value={description}
-        readonly
+        readOnly
       ></textarea>
       <div className="job-images">
             <div  className="job-image">
@@ -26,7 +46,8 @@ const JobDescriptionCard = ({ title, description, image, jobId, url , status, pr
       </div>
       <div className="job-footer">
         <div className="job-coins">{price} Coins</div>
-        {url === '/profile/jobsPosted' ? <div className="job-apply">{status}</div> : <div className="job-apply" onClick={onApply} >Apply</div>}
+        
+        {domNode()}
       </div>
     </div>
   );

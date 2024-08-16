@@ -57,9 +57,10 @@ const JobsApplied = () => {
             }
           })}
         </div>
-        {isStatus ? (
+        { (
           <div className="right">
             {jobsApplied?.map((job, index) => {
+              console.log(job.jobId,selectedJob);
               if (job.jobId === selectedJob) {
                 return (
                   <JobDescriptionCard
@@ -74,22 +75,7 @@ const JobsApplied = () => {
               }
             })}
           </div>
-        ) : (
-          <div>
-            {jobsApplied?.map((job, index) => {
-              if (job.jobId === selectedJob) {
-                return (
-                  <AppliedUsersCard
-                    key={index}
-                    userList={job.appliedUsers}
-                    status={job.status}
-                    jobId={job.jobId}
-                  />
-                );
-              }
-            })}
-          </div>
-        )}
+        ) }
       </div>
     </>
   );

@@ -48,7 +48,19 @@
         margin: 20px;
       }
   }
-  
+  .job-apply {
+    color: white;
+    border: 2px solid black;
+    background-color: #0073E6;
+    width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    padding: 5px 20px;
+    height: 40px;
+    cursor: pointer;
+}
   .job-footer {
     display: flex;
     justify-content: space-around;
