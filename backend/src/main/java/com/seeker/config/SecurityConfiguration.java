@@ -41,6 +41,7 @@ public class SecurityConfiguration {
 			.requestMatchers("/seeker/job/create").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job/update/{id}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job/apply/{id}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+			.requestMatchers("/seeker/job/job-completed/{jobId}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job/assign/{email}/{id}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/job").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 
