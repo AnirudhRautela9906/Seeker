@@ -26,7 +26,7 @@ const JobDescriptionCard = ({ title, description, image, jobId, url , status, pr
       </div>
       <div className="job-footer">
         <div className="job-coins">{price} Coins</div>
-        {url === '/profile/jobsPosted' ? <div className="job-apply">{status}</div> : <div className="job-apply" onClick={onApply} >Apply</div> }
+        {url === '/profile/jobsPosted' ? <div className="job-apply">{status}</div> : <div className="job-apply" onClick={onApply} >Apply</div>}
       </div>
     </div>
   );

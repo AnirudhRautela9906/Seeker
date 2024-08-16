@@ -5,8 +5,8 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin: 10px 0;
-  width: 700px;
+  margin: 5px;
+  width: 800px;
 }
 
 .user-info {
@@ -32,11 +32,24 @@
   background-color: #0056b3;
 }
 
-.message{
-  font-size: 16px;
-  text-decoration: underline;
-  text-align: center;
+.complete-status{
+  display: flex;
+  justify-content: space-around;
+  width: 450px;
+  .message{
+    display: flex;
+    font-size: 16px;
+    text-align: center;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  .svg{
+    width: 30px;
+    height: auto;
+  }  
 }
+
 
 .assigned-button {
   background-color: #FFB800;

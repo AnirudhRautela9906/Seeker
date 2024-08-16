@@ -53,12 +53,12 @@ const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
       );
     } else if (status === "COMPLETED") {
       return (
-        <>
-          <div className="message">
-            Hope, you are happy from the Seeker’s Service
-          </div>
+        <div className="complete-status">
           <img src={Success} alt="" className="svg"/>
-        </>
+          <div className="message">
+            Hope, you are happy from the Seeker’s Service 😊
+          </div>
+        </div>
       );
     }
   };

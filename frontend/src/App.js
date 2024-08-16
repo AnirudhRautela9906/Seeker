@@ -21,6 +21,7 @@ import { setJobsPosted } from "./redux/userSlice.js";
 import JobsPosted from "./pages/JobsPosted/JobsPosted.jsx";
 import {setJobsApplied} from "./redux/userSlice.js"
 import JobsApplied from "./pages/JobsApplied/JobsApplied.jsx";
+import TransactionTable from "./pages/contact/TransactionTable.jsx";
 function App() {
   //const [url, setUrl] = useState(null); // Default to null before API response
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function App() {
           dispatch(setJobsPosted(data.jobsPosted));
           dispatch(setUserLoading(false));
           dispatch(setJobsApplied(data.jobsApplied));
-          console.log(data.jobsPosted);
+
           
         }
         else{
@@ -64,6 +65,7 @@ function App() {
         <Route path="/profile/jobsApplied" element={<JobsApplied />} />     
         <Route path="/profile" element={<Profile />} />
         <Route path="/About" element={<About />} />
+        <Route path="/Contact" element={<TransactionTable/>} />
       </Routes>
       <Toaster />
     </Router>
