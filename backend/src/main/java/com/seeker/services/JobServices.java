@@ -72,6 +72,9 @@ public class JobServices {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             user = userRepo.findByEmail(userDetails.getUsername()).orElseThrow(() -> new BackendException("User not Found"));
         }
+        
+        if(jobDto.getPrice() <= 0)
+        	throw new BackendException("Amount can not be less then zero");
 
         System.out.println("JOB DTO"+jobDto);
         Job job = mapper.map(jobDto, Job.class);
@@ -86,6 +89,8 @@ public class JobServices {
         jobs.add(job); 
         user.setJobsPosted(jobs);
         System.out.println(user.getWallet());
+        if(user.getWallet() < job.getPrice())
+        	throw new BackendException("Insufficient Balance");
         user.setWallet(user.getWallet()-job.getPrice());
         
         Transaction transaction = new Transaction();
@@ -210,6 +215,7 @@ public class JobServices {
         transaction.setJob(job);
         transaction.setTransactionCode(Utils.generateRandomTransactionCode(10));
         transaction.setUser(assignedUser);
+        transaction.setPrice(job.getPrice());
         assignedUser.getTransactions().add(transaction);
         
         
