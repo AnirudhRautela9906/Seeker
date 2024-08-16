@@ -95,12 +95,12 @@ public class UserServices {
 		 // Set JWT in cookie
 //		final UserDetails userDetails = userDetailsService.loadUserByUsername(RegisterDTO.getEmail());
 
-//		String jwt = jwtService.generateToken(User);
-//        Cookie cookie = new Cookie("JWT_TOKEN", jwt);
-//        cookie.setHttpOnly(true);
-//        cookie.setPath("/");
-//        cookie.setMaxAge(60*60*5);
-//        response.addCookie(cookie);
+		String jwt = jwtService.generateToken(User);
+        Cookie cookie = new Cookie("JWT_TOKEN", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(60*60*5);
+        response.addCookie(cookie);
         
 //        return TokenDTO
 //        		.builder()

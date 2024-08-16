@@ -11,10 +11,10 @@ import StatusIcon from "../../Home_images/status.svg"
 import { useLocation } from "react-router-dom";
 import PostedJobSlice from "../../components/postedJobSlice/PostedJobSlice.jsx";
 import JobDescriptionCard from "../../components/jobDescriptionCard/JobDescriptionCard.js";
-import './JobsPosted.scss'
+
 import AppliedUsersCard from "../../components/appliedUsersCard/AppliedUsersCard.jsx";
-const JobsPosted = () => {
-    const { jobsPosted } = useSelector((state) => state.user);
+const JobsApplied = () => {
+    const { jobsApplied } = useSelector((state) => state.user);
     const {userLoading} = useSelector((state) => state.user);
     const {user} = useSelector((state) => state.user)
     const location = useLocation();
@@ -24,18 +24,19 @@ const JobsPosted = () => {
   const [filter, setFilters] = useState("none");
   const [showFilters, setShowFilters] = useState(false);
   const [isStatus, setIsStatus] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(jobsPosted[0]?.jobId);
+  const [selectedJob, setSelectedJob] = useState(jobsApplied[0]?.jobId);
   const nav = useNavigate();
   useEffect(() => {
       
+      // ?console.log(userLoading);
     if (user.email === "" && !userLoading) {
       nav("/");
     }
     else if( user.email !== "" && !userLoading )
     {
-      setSelectedJob(jobsPosted[0]?.jobId);
+      setSelectedJob(jobsApplied[0]?.jobId);
     }
-
+    //console.log(user);
   }, [nav,userLoading]);
     return (
         <>
@@ -45,51 +46,48 @@ const JobsPosted = () => {
             <div className="filtersPostedJobs">
               <p>
                 <img src={DownArrow} alt="" />
-                <span>Posted Jobs</span>
+                <span>Applied Jobs</span>
               </p>
             </div>
-            <span className="span1">
-              <img className="img1" src={ListIcon} alt="" onClick={()=>{setIsStatus(false)}}/>
-              <img className="img1" src={StatusIcon} alt=""  onClick={()=>{setIsStatus(true)}}/>
-            </span>
           </div>
           <div className="profile parallel">
 
                   <div className="left">
-                    {jobsPosted?.map((job, index) => {
+                    {jobsApplied?.map((job, index) => {
                        {
                         return (
                           <PostedJobSlice key={index} title={job.title} cN={job.jobId === selectedJob ? `borderGreen` : undefined}
                           onClick={() => {
-                            setSelectedJob((prev)=>{
-                              console.log("x");
-                              return job.jobId})
+                            setSelectedJob((prev)=>{return job.jobId})
                             }}/>
                         );
                       }
                     })}
                   </div>
                   {isStatus ? <div className="right">
-                    {jobsPosted?.map((job, index) => {
+                    {jobsApplied?.map((job, index) => {
                       if (job.jobId === selectedJob) {
                         return (
-                            <JobDescriptionCard key={index} title={job.title} description={job.longDesc} url={location.pathname} status={job.status} price ={job.price}/>
+                            <JobDescriptionCard key={index} title={job.title} description={job.longDesc} url={'/profile/jobsApplied'} status={job.status} price ={job.price}/>
                         );
                       }
                     })}
                   </div> :
                    <div>
-                  {jobsPosted?.map((job, index) => {
+                  {jobsApplied?.map((job, index) => {
                     if (job.jobId === selectedJob) {
+
                       return (
                         <AppliedUsersCard key={index} userList={job.appliedUsers} status={job.status} jobId={job.jobId}/>
                       );
                     }
                   })}
                   </div>}
+                  
           </div>
         </>
       );
     };
     
-export default JobsPosted
+
+export default JobsApplied

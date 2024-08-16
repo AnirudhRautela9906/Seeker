@@ -10,15 +10,14 @@ import { getApi } from "../../services/ApiConfig.js";
 import JobDescriptionCard from "../../components/jobDescriptionCard/JobDescriptionCard.js";
 import PostJobForm from "../../components/postJobForm/PostJobForm.jsx";
 const Profile = () => {
-  // console.log("jknjk")
+  
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [jobsList, setJobsList] = useState([]);
-  const [filter, setFilters] = useState("none");
+  const [filter, setFilters] = useState("area");
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(0);
+  const [selectedJob, setSelectedJob] = useState(1);
 
-  //console.log(user, "sxsk");
   const nav = useNavigate();
   useEffect(() => {
     if (user.email === "") {
@@ -27,15 +26,12 @@ const Profile = () => {
       getApi("http://localhost:8080/seeker/job")
         .then((res) => {
           setJobsList(res.data);
-          //console.log(res.data);
-
-          setSelectedJob(res.data[0]?.jobId);
+          setSelectedJob(res.data[0]?.creator.email !== user.email ? res.data[0]?.creator.email : -1);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-    //console.log(user);
   }, [nav]);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -89,14 +85,7 @@ const Profile = () => {
               >
                 state
               </button>
-              <button
-                onClick={() => {
-                  setFilters("none");
-                  setShowFilters(false);
-                }}
-              >
-                none
-              </button>
+              
             </div>
           )}
           {filter !== "none1" ? (
@@ -116,8 +105,9 @@ const Profile = () => {
             <span></span>
           )}
         </div>
-        <div onClick={openForm} className="postJobButton">
-          <div>Post a Job?</div>
+        <div  className="postJobButtonAndWallet">
+        <div className="wallet">Wallet : {user.wallet} </div>
+          <div className="postJobButton" onClick={openForm} >Post a Job?</div>
         </div>
       </div>
       <div className="profile parallel">
@@ -133,7 +123,7 @@ const Profile = () => {
               (filter === "state" &&
                 job.creator.email !== user.email &&
                 user.address.state === job.jobLocation.state) ||
-              filter === "none" && job.creator.email !== user.email
+              ( filter === "none1")  && job.creator.email !== user.email
             ) {
               return (
                 <JobCard
@@ -165,6 +155,7 @@ const Profile = () => {
                   title={job.title}
                   jobId={job.jobId}
                   description={job.longDesc}
+                  price={job.price}
                 />
               );
             }
@@ -174,7 +165,7 @@ const Profile = () => {
 
       {isFormVisible && (
         <div className="overlay">
-          <PostJobForm/>
+          <PostJobForm setIsFormVisible={setIsFormVisible}/>
         </div>
       )}
     </>

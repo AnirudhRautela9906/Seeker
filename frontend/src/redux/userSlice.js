@@ -17,7 +17,8 @@ export const userSlice = createSlice({
       },
     },
     jobsPosted:[],
-    userLoading:true
+    userLoading:true,
+    jobsApplied : []
   },
   reducers: {
     setUser: (state,action)=>{
@@ -28,11 +29,14 @@ export const userSlice = createSlice({
     },
     setUserLoading:(state,action) =>{
       state.userLoading = action.payload
+    },
+    setJobsApplied:(state,action)=>{
+      state.jobsApplied = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUser, setJobsPosted , setUserLoading } = userSlice.actions
+export const { setUser, setJobsPosted , setUserLoading , setJobsApplied } = userSlice.actions
 
 export default userSlice.reducer

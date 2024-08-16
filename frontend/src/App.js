@@ -19,7 +19,8 @@ import { getApi } from "./services/ApiConfig.js";
 import { useFetchGet } from "./hooks/useFetchGet.jsx";
 import { setJobsPosted } from "./redux/userSlice.js";
 import JobsPosted from "./pages/JobsPosted/JobsPosted.jsx";
-
+import {setJobsApplied} from "./redux/userSlice.js"
+import JobsApplied from "./pages/JobsApplied/JobsApplied.jsx";
 function App() {
   //const [url, setUrl] = useState(null); // Default to null before API response
   const dispatch = useDispatch();
@@ -36,7 +37,9 @@ function App() {
           //setUrl("/profile")
           dispatch(setJobsPosted(data.jobsPosted));
           dispatch(setUserLoading(false));
+          dispatch(setJobsApplied(data.jobsApplied));
           console.log(data.jobsPosted);
+          
         }
         else{
           console.log("nk");
@@ -57,7 +60,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Signup" element={<Register />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/profile/jobsPosted" element={<JobsPosted />} />     
+        <Route path="/profile/jobsPosted" element={<JobsPosted />} />  
+        <Route path="/profile/jobsApplied" element={<JobsApplied />} />     
         <Route path="/profile" element={<Profile />} />
         <Route path="/About" element={<About />} />
       </Routes>
