@@ -71,7 +71,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userSer.deleteUser(email));
 	}
 
-	@PostMapping("/logout")
+	@GetMapping("/logout")
 	public ResponseEntity<?> logout(HttpServletResponse response) {
 		// Invalidate the JWT cookie by setting its max age to 0
 		Cookie cookie = new Cookie("JWT_TOKEN", null);

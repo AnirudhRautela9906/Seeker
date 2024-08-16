@@ -16,6 +16,7 @@ import com.seeker.exception.BackendException;
 import com.seeker.model.Address;
 import com.seeker.model.Job;
 import com.seeker.model.JobStatus;
+import com.seeker.model.Notification;
 import com.seeker.model.User;
 import com.seeker.repository.JobRepository;
 import com.seeker.repository.UserRepository;
@@ -113,6 +114,7 @@ public class JobServices {
         if(job.getAppliedUsers().contains(user))
         	throw new BackendException("Already Applied");
         
+        
         List<Job> jobsList = user.getJobsApplied();
         jobsList.add(job);
         user.setJobsApplied(jobsList);
@@ -137,17 +139,62 @@ public class JobServices {
 		if(!job.getAppliedUsers().contains(user))
 			throw new BackendException("User Cannot be Assigned");
 		
+		Notification notification = new Notification();
+		notification.setMessage("A Job is Assigned");
+		notification.setUser(user);
+		notification.setJob(job);
+		List<Notification> notificatioinList = user.getNotificationList();
+		notificatioinList.add(notification);
+		
+		
 		job.setAssignedUser(user);
 		job.setStatus(JobStatus.ASSIGNED);
 		List<Job> assignedJobs = user.getAssignedJobs();
 		assignedJobs.add(job);
 		user.setAssignedJobs(assignedJobs);
+		userRepo.save(user);
 		
 		return "Job Assigned";
 	}
 
 
-
+	public Object jobComplete(Long jobId) {
+		User user = null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            user = userRepo.findByEmail(userDetails.getUsername()).orElseThrow(() -> new BackendException("User not Found"));
+        }
+        
+        Job job = jobRepo.findById(jobId).orElseThrow(()-> new BackendException("Job Not Found"));
+        if(!user.getJobsPosted().contains(job))
+        	throw new BackendException("You Cannot the job status");
+        
+        job.setStatus(JobStatus.COMPLETED);
+        
+        // Set Notification for the job poster
+        Notification notification = new Notification();
+        notification.setMessage("A Job is Completed");
+        notification.setJob(job);
+        notification.setUser(user);
+        List<Notification> posterNotifications = user.getNotificationList();
+        posterNotifications.add(notification);
+        user.setNotificationList(posterNotifications);
+        userRepo.save(user);
+        
+        // Set Notification for the assigned user
+        Notification notification2 = new Notification();
+        notification2.setMessage("A Job is Completed");
+        notification2.setJob(job);
+        notification2.setUser(job.getAssignedUser());
+        List<Notification> assignedUserNotifications = job.getAssignedUser().getNotificationList();
+        assignedUserNotifications.add(notification2);
+        job.getAssignedUser().setNotificationList(assignedUserNotifications);
+        userRepo.save(job.getAssignedUser());
+        
+        return "Job Completed";
+        
+	} 
 
 	
 }

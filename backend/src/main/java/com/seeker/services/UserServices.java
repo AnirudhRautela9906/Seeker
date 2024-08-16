@@ -1,5 +1,6 @@
 package com.seeker.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,12 +15,14 @@ import com.seeker.config.JwtService;
 import com.seeker.dto.job.JobAppliedDTO;
 import com.seeker.dto.job.JobPostedDTO;
 import com.seeker.dto.remaining.AddressDTO;
+import com.seeker.dto.remaining.NotificationDTO;
 import com.seeker.dto.user.LoginDTO;
 import com.seeker.dto.user.MeDTO;
 import com.seeker.dto.user.RegisterDTO;
 import com.seeker.exception.BackendException;
 import com.seeker.model.Address;
 import com.seeker.model.Job;
+import com.seeker.model.Notification;
 import com.seeker.model.Role;
 import com.seeker.model.User;
 import com.seeker.repository.UserRepository;
@@ -165,6 +168,15 @@ public class UserServices {
 		meDTO.setRole(user.getRole());
 		meDTO.setAddress(mapper.map(user.getAddress(), AddressDTO.class));
 		meDTO.setPhoneNumber(user.getPhoneNumber());
+		meDTO.setWallet(user.getWallet());
+		
+		//List of notifications
+		List<NotificationDTO> notificationDTOs = new ArrayList<NotificationDTO>();
+		List<Notification> notifications = user.getNotificationList();
+		for(Notification n : notifications) {
+			notificationDTOs.add(new NotificationDTO(n.getId(),n.getMessage(),n.getJob().getTitle(), n.isRead()));
+		}
+		meDTO.setNotificationList(notificationDTOs);
 		
 		// List of jobs posted by the logged in user
 		List<JobPostedDTO> jobPostedDtoList = user.getJobsPosted().stream()
@@ -172,10 +184,16 @@ public class UserServices {
 		.collect(Collectors.toList());
 		meDTO.setJobsPosted(jobPostedDtoList);
 		
+		
 		//List of jobs applied by the logged in user
 		List<Job> jobsAppliedList = user.getJobsApplied();
 		List<JobAppliedDTO> jobsAppliedDtoList = jobsAppliedList.stream().map(e -> mapper.map(e, JobAppliedDTO.class)).collect(Collectors.toList());
 		meDTO.setJobsApplied(jobsAppliedDtoList);
+		
+		//List of jobs assigned to the logged in user
+		List<Job> jobsAssignedList = user.getAssignedJobs();
+		List<JobAppliedDTO> jobsAssignedDTOs = jobsAssignedList.stream().map(e-> mapper.map(e, JobAppliedDTO.class)).collect(Collectors.toList());
+		meDTO.setAssignedJobs(jobsAssignedDTOs);
 		
 		
 		return meDTO;
