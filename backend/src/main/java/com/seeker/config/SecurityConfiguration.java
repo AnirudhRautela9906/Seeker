@@ -33,6 +33,7 @@ public class SecurityConfiguration {
 			.requestMatchers("/seeker/getUser/{email}").hasAuthority(Role.ADMIN.name())
 			.requestMatchers("/seeker/delete/{email}").hasAuthority(Role.ADMIN.name())
 			.requestMatchers("/seeker/update/{email}").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+			.requestMatchers("/seeker/update-wallet").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			.requestMatchers("/seeker/logout").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 			
 //			Job Mapping
