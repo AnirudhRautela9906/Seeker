@@ -1,7 +1,6 @@
 import React from "react";
 import './Style.scss'
-import Navbar from '../../components/navbar/Navbar.jsx'
-
+import Footer from '../../components/footer/Footer.jsx'
 const About = () => {
   return (
     <div className="about-page">
@@ -9,6 +8,7 @@ const About = () => {
         <div className="hero-content">
           <h1>About Us</h1>
           <p>We are committed to innovation and excellence.</p>
+          <p></p>
         </div>
       </header>
       <section className="about-section">
@@ -16,44 +16,24 @@ const About = () => {
           <div className="about-text">
             <h2>Our Mission</h2>
             <p>
-              Our mission is to deliver outstanding solutions that drive success and 
-              make a meaningful difference. We prioritize creativity, quality, and 
-              integrity in every project we undertake.
+              Welcome to SEEKER, your go-to solution for connecting with local freelancers to tackle everyday tasks with ease. Our mission is simple: to bridge the gap between individuals seeking help with daily chores and skilled freelancers eager to lend a hand. Whether you need a grocery pickup, help with appliance installations, indoor gardening, or even construction and renovations, we have got you covered.
             </p>
           </div>
+
+
           <div className="about-image">
-            <img src="https://via.placeholder.com/800x400" alt="Our Team" />
+            
           </div>
         </div>
+
+
       </section>
-      <section className="team-section">
-        <div className="container">
-          <h2>Meet the Team</h2>
-          <div className="team-cards">
-            <div className="team-card">
-              <img src="https://via.placeholder.com/150" alt="Team Member" />
-              <h3>Jane Doe</h3>
-              <p>CEO</p>
-            </div>
-            <div className="team-card">
-              <img src="https://via.placeholder.com/150" alt="Team Member" />
-              <h3>JAYANT RAOO</h3>
-              <p>CTO</p>
-            </div>
-            <div className="team-card">
-              <img src="https://via.placeholder.com/150" alt="Team Member" />
-              <h3>AYUSH KUMAR</h3>
-              <p>Creative Director</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <footer className="about-footer">
-        <div className="container">
-          <p>&copy; 2024 SEEKERS. All rights reserved.</p>
-        </div>
-      </footer>
+      
+      
+      
+      <Footer />
     </div>
+    
   );
 };
 

@@ -7,13 +7,13 @@ $text-color: #34495e;
 $container-max-width: 1200px;
 
 .about-page {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: $text-color;
   background-color: $background-color;
   padding: 0;
 
   .about-hero {
-    background: url('./backGround.svg') no-repeat center center/cover;
+    background: url("./backGround.svg") no-repeat center center/cover;
     color: #fff;
     padding: 80px 20px;
     text-align: center;
@@ -39,8 +39,7 @@ $container-max-width: 1200px;
   }
 
   .about-section {
-    padding: 60px 20px;
-
+    padding: 50px 20px;
     .container {
       max-width: $container-max-width;
       margin: 0 auto;
@@ -53,13 +52,12 @@ $container-max-width: 1200px;
       .about-text {
         max-width: 70%;
         margin-bottom: 40px;
-    
+        text-align: center;
         h2 {
           font-size: 2.5rem;
           color: $secondary-color;
           margin-bottom: 20px;
         }
-
         p {
           font-size: 1.125rem;
           line-height: 1.8;
@@ -67,12 +65,16 @@ $container-max-width: 1200px;
       }
 
       .about-image {
+        width: 800px; // Set the width to 800px
+        height: 400px; // Set the height to 400px
+        overflow: hidden; // Ensure that if the SVG exceeds the dimensions, it is clipped
+        border-radius: 12px; // Optional: Add rounded corners if needed
+        background: url("./background2.svg") no-repeat center center/cover;
+        margin-bottom: 30px;
         img {
           width: 100%;
-          max-width: 90%;
-          border-radius: 12px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          margin-bottom: 30px;
+          height: 100%;
+          object-fit: cover; // Cover the container while maintaining aspect ratio
         }
       }
     }
