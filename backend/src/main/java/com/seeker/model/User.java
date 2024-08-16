@@ -67,6 +67,9 @@ public class User implements UserDetails {
     private List<Notification> notificationList = new ArrayList<Notification>();
     
     private Double wallet = 1000.0;
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<Transaction>(); 
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
