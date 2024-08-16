@@ -1,5 +1,6 @@
 package com.seeker.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,6 +98,7 @@ public class JobServices {
         transaction.setTransactionCode(Utils.generateRandomTransactionCode(10));
         transaction.setUser(user);
         transaction.setJob(job);
+        transaction.setTransactionTime(LocalDateTime.now());
         transaction.setPrice(job.getPrice() * (-1));
         
         user.getTransactions().add(transaction);
@@ -216,6 +218,7 @@ public class JobServices {
         transaction.setTransactionCode(Utils.generateRandomTransactionCode(10));
         transaction.setUser(assignedUser);
         transaction.setPrice(job.getPrice());
+        transaction.setTransactionTime(LocalDateTime.now());
         assignedUser.getTransactions().add(transaction);
         
         
