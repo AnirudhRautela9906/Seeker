@@ -1,5 +1,7 @@
 package com.seeker.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +26,8 @@ public class Transaction {
 	private String transactionCode;
 	
 	private Double price;
+	
+	private LocalDateTime transactionTime;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "job_id")

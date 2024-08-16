@@ -1,5 +1,7 @@
 package com.seeker.dto.remaining;
 
+import java.time.LocalDateTime;
+
 import com.seeker.dto.job.JobTransactionDTO;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +20,8 @@ public class TransactionDTO {
 	private String transactionCode;
 	
 	private Double price;
+	
+	private LocalDateTime transactionTime;
 	
 	private JobTransactionDTO job;
 	
