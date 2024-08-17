@@ -21,7 +21,7 @@ const Contact = () => {
       //Team member 2
       image: mem2,
       name: 'Anirudh Rautela',
-      linkedin: '',
+      linkedin: 'https://www.linkedin.com/in/anirudhrautela9906/',
       github: 'https://github.com/AnirudhRautela9906'
     },
     {

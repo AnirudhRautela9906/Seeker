@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavbarProfile from "../../components/navbar/NavbarProfile";
 import DownArrow from "../../Home_images/Down Icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,28 +6,29 @@ import { useLocation } from "react-router-dom";
 import PostedJobSlice from "../../components/postedJobSlice/PostedJobSlice.jsx";
 import JobDescriptionCard from "../../components/jobDescriptionCard/JobDescriptionCard.js";
 
-import AppliedUsersCard from "../../components/appliedUsersCard/AppliedUsersCard.jsx";
+// import AppliedUsersCard from "../../components/appliedUsersCard/AppliedUsersCard.jsx";
 const JobsApplied = () => {
-  const { jobsApplied } = useSelector((state) => state.user);
-  const { userLoading } = useSelector((state) => state.user);
+
+  // const { user } = useSelector((state) => state.user);
+  // const { userLoading } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
   const [filter, setFilters] = useState("none");
   const [showFilters, setShowFilters] = useState(false);
   const [isStatus, setIsStatus] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(jobsApplied[0]?.jobId);
+  const [selectedJob, setSelectedJob] = useState(user?.jobsApplied[0]?.jobId);
   const nav = useNavigate();
   useEffect(() => {
-    if (user.email === "" && !userLoading) {
-      nav("/");
-    } else if (user.email !== "" && !userLoading) {
-      setSelectedJob(jobsApplied[0]?.jobId);
-    }
-  }, [nav, userLoading]);
+    // if (user.email === "" && !userLoading) {
+    //   nav("/");
+    // } else if (user.email !== "" ) {
+    //   setSelectedJob(jobsApplied[0]?.jobId);
+    // }
+  }, [nav]);
   return (
     <>
-      <NavbarProfile />
+      {/* <NavbarProfile /> */}
       <hr />
       <div className="navPostedJobs">
         <div className="filtersPostedJobs">
@@ -40,8 +40,8 @@ const JobsApplied = () => {
       </div>
       <div className="profile parallel">
         <div className="left">
-          {jobsApplied?.map((job, index) => {
-            {
+          {user?.jobsApplied?.map((job, index) => {
+            
               return (
                 <PostedJobSlice
                   key={index}
@@ -54,12 +54,12 @@ const JobsApplied = () => {
                   }}
                 />
               );
-            }
+            
           })}
         </div>
         { (
           <div className="right">
-            {jobsApplied?.map((job, index) => {
+            {user?.jobsApplied?.map((job, index) => {
               console.log(job.jobId,selectedJob);
               if (job.jobId === selectedJob) {
                 return (
@@ -70,6 +70,8 @@ const JobsApplied = () => {
                     url={"/profile/jobsApplied"}
                     status={job.status}
                     price={job.price}
+                    assignedUser={job.assignedUser}
+                    email={user.email}
                   />
                 );
               }

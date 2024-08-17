@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { userReducer } from "./reducers/userReducers.js";
+import { jobReducer } from "./reducers/jobReducers.js";
 
-import userSlice from "./userSlice.js";
-export const store = configureStore({
+
+ const store = configureStore({
   reducer: {
-    user: userSlice,
-    
+    user:userReducer,
+
+    job:jobReducer
   },
-});
+},window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__);
+
+export default store;
