@@ -1,9 +1,9 @@
 import React from 'react'
 import './JobCard.scss'
-const JobCard = ({picUrl,name,address,jobTitle, cN, onClick}) => {
+const JobCard = ({picUrl,name,address,jobTitle,cN, onClick}) => {
   return (
     <>
-        <div className={`job-card ${cN}`} onClick={onClick}>
+        <div className= {`${cN} pjs job-card`} onClick={onClick}>
             <div className="firstBox">
                 <img src={picUrl} alt="" />
                 <div className="firstBoxDetails">
@@ -19,6 +19,7 @@ const JobCard = ({picUrl,name,address,jobTitle, cN, onClick}) => {
             <div className="secondBox">
                 <p>{jobTitle}</p>
             </div>
+            
         </div>
     </>
   )

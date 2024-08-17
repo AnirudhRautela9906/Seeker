@@ -2,9 +2,9 @@ import React from "react";
 import "./AppliedUsersCard.scss"; // Import the CSS file
 import { putApi } from "../../services/ApiConfig";
 import toast from "react-hot-toast";
-import Success from "../../Home_images/Success.svg";
+import Success from "../../Home_images/Success.svg"
 
-const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
+const AppliedUsersCard = ({ assignedUser,userList, cN, jobId, status }) => {
   const onAssign = (email, jobid) => {
     putApi(`http://localhost:8080/seeker/job/assign/${email}/${jobId}`)
       .then((res) => {
@@ -40,7 +40,7 @@ const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
           </button>
         </div>
       );
-    } else if (status === "ASSIGNED") {
+    } else if ( assignedUser?.email === email && status === "ASSIGNED") {
       return (
         <div className="completed-container">
           <button className="assigned-button">Assigned</button>
@@ -58,7 +58,7 @@ const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
           </div>
         </div>
       );
-    } else if (status === "COMPLETED") {
+    } else if(assignedUser?.email === email && status === "COMPLETED") {
       return (
         <div className="complete-status">
           <img src={Success} alt="" className="svg" />
@@ -73,6 +73,7 @@ const AppliedUsersCard = ({ userList, cN, jobId, status }) => {
     return <div className="user-assign-container">No Seekers available</div>;
   }
   return (
+    
     <div>
       {userList?.map((user, index, jobId) => (
         <div key={index} className={`user-assign-container ${cN}`}>

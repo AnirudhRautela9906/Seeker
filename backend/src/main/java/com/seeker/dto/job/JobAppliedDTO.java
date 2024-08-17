@@ -34,7 +34,7 @@ public class JobAppliedDTO {
 
 	private LocalDateTime jobPostDateTime;
 
-//	private List<RegisterDTO> appliedUsers;
+	private RegisterDTO assignedUser;
 
 	private JobStatus status;
 }

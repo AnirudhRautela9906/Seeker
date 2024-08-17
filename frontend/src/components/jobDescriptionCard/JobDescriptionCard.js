@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './JobDescriptionCard.scss'
-import {  putApi } from "../../services/ApiConfig";
 import toast from 'react-hot-toast';
-const JobDescriptionCard = ({ title, description, image, jobId, url , status, price}) => {
+import { useSelector, useDispatch } from "react-redux";
+import { applyJob, loadJobs } from "../../redux/actions/jobActions";
+import { JOB_APPLY_REQUEST } from "../../redux/constants/jobConsants";
+
+const JobDescriptionCard = ({title, description, image, jobId, url , status, price,assignedUser ,email}) => {
+
+  const dispatch = useDispatch();
+
     const onApply = ()=>{
-        putApi(`http://localhost:8080/seeker/job/apply/${jobId}`).then((res)=>{
-            toast.success("Applied Successfully !");
-        }).catch((error)=>{
-            console.log(error);
-            toast.error("Already Applied !");
-        })
+      dispatch(applyJob(jobId));
     }
     const domNode = ()=>{
       if(url === '/profile/jobsPosted')
@@ -23,13 +24,33 @@ const JobDescriptionCard = ({ title, description, image, jobId, url , status, pr
            else{
             if(status === "POSTED")
             {
-              return <div className="job-apply"  >Applied</div>
+              return <div className="job-apply" style={{backgroundColor:"grey"}} >Applied</div>
             }
             else{
-              return <div className="job-apply"  >{status}</div>
-              
+              if(status === "ASSIGNED" &&  assignedUser?.email !== email)
+              {
+                return <div className="job-apply" style={{backgroundColor:"grey"}} >Applied</div>
+              }
+              else{
+                if(status === "COMPLETED" &&  assignedUser?.email !== email)
+                {
+                  console.log("asd")
+                  console.log(email)
+                  console.log("assignedUser?.email",assignedUser?.email)
+                  return <div className="job-apply" style={{backgroundColor:"grey"}} >Applied</div>
+                }
+           else{
+            if( assignedUser?.email === email && status  === "ASSIGNED")
+            {
+              return <div className="job-apply" style={{backgroundColor:"#FFB800"}} >Assigned</div>
             }
-           } 
+            else{
+              console.log(assignedUser)
+              if( assignedUser?.email === email && status  === "COMPLETED")
+              return <div className="job-apply"  style={{backgroundColor:"#21B414"}}  >Completed</div>
+            }}
+            }
+           } }
     }
   return (
     <div className="job-card-description">
