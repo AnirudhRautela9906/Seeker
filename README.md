@@ -12,7 +12,7 @@ while allowing freelancers to find and complete these jobs efficiently.
 <br>4. On job posting and job completion wallet balance gets updated and users have access to transaction history as well.
 <br><br>
 # Technologies Used:
-<b>Frontend:</b> Figma, React.js with Redux
+<b>Frontend:</b> Figma, SCSS, React.js with Redux
 <br>
 <b>Backend:</b> Spring Boot, MySQL
 <br>
